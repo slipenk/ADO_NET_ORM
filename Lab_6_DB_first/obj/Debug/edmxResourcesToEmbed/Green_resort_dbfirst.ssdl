@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Green_resortModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="ID_client" />
+    </Key>
+    <Property Name="ID_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Surname" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="MIddle_name" Type="varchar" MaxLength="100" />
+    <Property Name="Phone_number" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Date_birth" Type="date" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="Registration_date" Type="date" Nullable="false" />
+    <Property Name="HomeTown" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Dwelling">
+    <Key>
+      <PropertyRef Name="ID_dwelling" />
+    </Key>
+    <Property Name="ID_dwelling" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Number_of_beds" Type="smallint" Nullable="false" />
+    <Property Name="Number_of_rooms" Type="smallint" Nullable="false" />
+    <Property Name="Number_of_floors" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Entertainments">
+    <Key>
+      <PropertyRef Name="ID_entertainment" />
+    </Key>
+    <Property Name="ID_entertainment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Cost" Type="int" Nullable="false" />
+    <Property Name="Duration" Type="real" />
+  </EntityType>
+  <EntityType Name="MM_Tours_Clients">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID_tours" Type="int" Nullable="false" />
+    <Property Name="ID_clients" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tours">
+    <Key>
+      <PropertyRef Name="ID_tour" />
+    </Key>
+    <Property Name="ID_tour" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Food" Type="bit" Nullable="false" />
+    <Property Name="Cost" Type="int" Nullable="false" />
+    <Property Name="Date_start" Type="date" Nullable="false" />
+    <Property Name="Date_end" Type="date" Nullable="false" />
+    <Property Name="ID_dwelling" Type="int" Nullable="false" />
+    <Property Name="Date_order" Type="datetime" />
+    <Property Name="Pet" Type="bit" />
+    <Property Name="Smoking" Type="bit" />
+  </EntityType>
+  <EntityType Name="Tours_Entertainments">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID_tour" Type="int" Nullable="false" />
+    <Property Name="ID_Entertainment" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Workers">
+    <Key>
+      <PropertyRef Name="ID_workers" />
+    </Key>
+    <Property Name="Surname" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Middle_name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Phone_number" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Date_birth" Type="date" Nullable="false" />
+    <Property Name="Salary" Type="int" Nullable="false" />
+    <Property Name="Position" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ID_workers" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Permissions" Type="smallint" />
+  </EntityType>
+  <EntityType Name="Workers_Tours">
+    <Key>
+      <PropertyRef Name="ID_1" />
+    </Key>
+    <Property Name="ID_1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_worker" Type="int" Nullable="false" />
+    <Property Name="ID_tour" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="MM_Tours_Clients_FK">
+    <End Role="Tours" Type="Self.Tours" Multiplicity="1" />
+    <End Role="MM_Tours_Clients" Type="Self.MM_Tours_Clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tours">
+        <PropertyRef Name="ID_tour" />
+      </Principal>
+      <Dependent Role="MM_Tours_Clients">
+        <PropertyRef Name="ID_tours" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MM_Tours_Clients_FK_1">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="MM_Tours_Clients" Type="Self.MM_Tours_Clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="ID_client" />
+      </Principal>
+      <Dependent Role="MM_Tours_Clients">
+        <PropertyRef Name="ID_clients" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Tours_Entertainments_FK">
+    <End Role="Tours" Type="Self.Tours" Multiplicity="1" />
+    <End Role="Tours_Entertainments" Type="Self.Tours_Entertainments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tours">
+        <PropertyRef Name="ID_tour" />
+      </Principal>
+      <Dependent Role="Tours_Entertainments">
+        <PropertyRef Name="ID_tour" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Tours_Entertainments_FK_1">
+    <End Role="Entertainments" Type="Self.Entertainments" Multiplicity="1" />
+    <End Role="Tours_Entertainments" Type="Self.Tours_Entertainments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entertainments">
+        <PropertyRef Name="ID_entertainment" />
+      </Principal>
+      <Dependent Role="Tours_Entertainments">
+        <PropertyRef Name="ID_Entertainment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Tours_FK">
+    <End Role="Dwelling" Type="Self.Dwelling" Multiplicity="1" />
+    <End Role="Tours" Type="Self.Tours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dwelling">
+        <PropertyRef Name="ID_dwelling" />
+      </Principal>
+      <Dependent Role="Tours">
+        <PropertyRef Name="ID_dwelling" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Workers_Tours_FK">
+    <End Role="Workers" Type="Self.Workers" Multiplicity="1" />
+    <End Role="Workers_Tours" Type="Self.Workers_Tours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Workers">
+        <PropertyRef Name="ID_workers" />
+      </Principal>
+      <Dependent Role="Workers_Tours">
+        <PropertyRef Name="ID_worker" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Workers_Tours_FK_1">
+    <End Role="Tours" Type="Self.Tours" Multiplicity="1" />
+    <End Role="Workers_Tours" Type="Self.Workers_Tours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tours">
+        <PropertyRef Name="ID_tour" />
+      </Principal>
+      <Dependent Role="Workers_Tours">
+        <PropertyRef Name="ID_tour" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Green_resortModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Dwelling" EntityType="Self.Dwelling" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Entertainments" EntityType="Self.Entertainments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MM_Tours_Clients" EntityType="Self.MM_Tours_Clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tours_Entertainments" EntityType="Self.Tours_Entertainments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Workers" EntityType="Self.Workers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Workers_Tours" EntityType="Self.Workers_Tours" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="MM_Tours_Clients_FK" Association="Self.MM_Tours_Clients_FK">
+      <End Role="Tours" EntitySet="Tours" />
+      <End Role="MM_Tours_Clients" EntitySet="MM_Tours_Clients" />
+    </AssociationSet>
+    <AssociationSet Name="MM_Tours_Clients_FK_1" Association="Self.MM_Tours_Clients_FK_1">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="MM_Tours_Clients" EntitySet="MM_Tours_Clients" />
+    </AssociationSet>
+    <AssociationSet Name="Tours_Entertainments_FK" Association="Self.Tours_Entertainments_FK">
+      <End Role="Tours" EntitySet="Tours" />
+      <End Role="Tours_Entertainments" EntitySet="Tours_Entertainments" />
+    </AssociationSet>
+    <AssociationSet Name="Tours_Entertainments_FK_1" Association="Self.Tours_Entertainments_FK_1">
+      <End Role="Entertainments" EntitySet="Entertainments" />
+      <End Role="Tours_Entertainments" EntitySet="Tours_Entertainments" />
+    </AssociationSet>
+    <AssociationSet Name="Tours_FK" Association="Self.Tours_FK">
+      <End Role="Dwelling" EntitySet="Dwelling" />
+      <End Role="Tours" EntitySet="Tours" />
+    </AssociationSet>
+    <AssociationSet Name="Workers_Tours_FK" Association="Self.Workers_Tours_FK">
+      <End Role="Workers" EntitySet="Workers" />
+      <End Role="Workers_Tours" EntitySet="Workers_Tours" />
+    </AssociationSet>
+    <AssociationSet Name="Workers_Tours_FK_1" Association="Self.Workers_Tours_FK_1">
+      <End Role="Tours" EntitySet="Tours" />
+      <End Role="Workers_Tours" EntitySet="Workers_Tours" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
